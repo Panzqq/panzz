@@ -1,0 +1,93 @@
+[
+  {
+    "id": "mining duit",
+    "author": "Aziiz1998",
+    "meta": {
+      "pca": {
+        "version": "4.4.2"
+      }
+    },
+    "frames": [
+      {
+        "bmp": "zhwgjx1.png"
+      }
+    ],
+    "price": 10,
+    "monthly price": 50,
+    "build time": 1,
+    "influence park": 650,
+    "influence education low": 16660,
+    "influence education high": 16660,
+    "provide aspect education low": 552894464,
+    "provide aspect education medium": 7000,
+    "provide aspect education high": 552894464,
+    "aspect education low capacity": 5000000,
+    "aspect education high capacity": 5000000,
+    "width": 4,
+    "height": 4,
+    "needs land": true,
+    "draw ground": true,
+    "performance": true,
+    "power radius": 1024,
+    "supports slope": true,
+    "supports terrain": true,
+    "upgrades": [
+      {
+        "id": "goblin 1",
+        "meta": {
+          "pca": {
+            "version": "4.4.2"
+          }
+        },
+        "frames": [
+          {
+            "bmp": "zhwgjx1.png"
+          }
+        ],
+        "monthly price": 100,
+        "influence park": 3500,
+        "influence education low": 3500,
+        "influence education high": 3500,
+        "provide aspect education low": 5000000,
+        "provide aspect education high": 5000000,
+        "aspect education low capacity": 5000000,
+        "aspect education high capacity": 5000000
+      },
+      {
+        "id": "Goblin 2",
+        "meta": {
+          "pca": {
+            "version": "4.4.2"
+          }
+        },
+        "frames": [
+          {
+            "bmp": "zhwgjx1.png"
+          }
+        ],
+        "provide aspect education high": 5000000,
+        "provide aspect health care": 5000000,
+        "aspect education low capacity": 5000000,
+        "aspect education high capacity": 5000000
+      },
+      {
+        "id": "$goblin 3",
+        "meta": {
+          "pca": {
+            "version": "4.4.2"
+          }
+        },
+        "frames": [
+          {
+            "bmp": "zhwgjx1.png"
+          }
+        ],
+        "provide aspect education low": 100000000,
+        "provide aspect education high": 100000000,
+        "aspect education low capacity": 100000000,
+        "aspect education high capacity": 100000000
+      }
+    ],
+    "type": "education"
+  }
+]
