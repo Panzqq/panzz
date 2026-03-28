@@ -1,0 +1,2717 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panpan — WhatsApp Bot Portfolio</title>
+  <meta name="description" content="Portfolio neobrutal code-style Panpan, WhatsApp Bot Builder dari Indonesia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f2e8;
+      --paper:#fffaf0;
+      --white:#ffffff;
+      --black:#111111;
+      --yellow:#ffd52d;
+      --green:#38e27c;
+      --cyan:#7fdcff;
+      --pink:#ff7ace;
+      --violet:#9f84ff;
+      --orange:#ff9d35;
+      --red:#ff5f5f;
+      --line:4px solid #111111;
+      --shadow:8px 8px 0 #111111;
+      --shadow-sm:5px 5px 0 #111111;
+      --radius:26px;
+      --max:1220px;
+      --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans:"Space Grotesk", Inter, system-ui, sans-serif;
+      --ease:cubic-bezier(.2,.8,.2,1);
+      --profile-url:"https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-20/RenV-22542.jpeg";
+      --api-thumb-url:"https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-25/RenV-48659.jpeg";
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;overflow-x:hidden;width:100%;max-width:100%}
+    body{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+      font-family:var(--sans);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255,213,45,.22), transparent 24%),
+        radial-gradient(circle at 88% 10%, rgba(127,220,255,.18), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(255,122,206,.14), transparent 25%),
+        var(--bg);
+      color:var(--black);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(17,17,17,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17,17,17,.06) 1px, transparent 1px);
+      background-size:30px 30px;
+      opacity:.35;
+    }
+
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .container{width:min(var(--max), calc(100% - 16px));margin:auto;max-width:100%}
+    .section{padding:92px 0}
+
+    .neo, .card{
+      border:var(--line);
+      border-radius:var(--radius);
+      position:relative;
+      background:var(--white);
+      transform-style:preserve-3d;
+    }
+    .neo{box-shadow:var(--shadow)}
+    .card{
+      box-shadow:var(--shadow-sm);
+      transition:transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
+    }
+    .card:hover{
+      transform:translate(-3px,-3px);
+      box-shadow:10px 10px 0 #111111;
+    }
+
+    .code-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 13px;
+      border:var(--line);
+      border-radius:999px;
+      background:#fff;
+      box-shadow:4px 4px 0 #111111;
+      font:800 12px var(--mono);
+      letter-spacing:.02em;
+      white-space:nowrap;
+    }
+    .code-chip.yellow{background:var(--yellow)}
+    .code-chip.green{background:var(--green)}
+    .code-chip.cyan{background:var(--cyan)}
+    .code-chip.pink{background:var(--pink)}
+    .code-chip.black{background:var(--black); color:#fff}
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 13px;
+      border:var(--line);
+      border-radius:999px;
+      box-shadow:4px 4px 0 #111111;
+      font:800 12px var(--mono);
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 22px;
+      border:var(--line);
+      border-radius:18px;
+      box-shadow:5px 5px 0 #111111;
+      cursor:pointer;
+      transition:transform .16s var(--ease), box-shadow .16s var(--ease), background .16s var(--ease);
+      font-weight:800;
+      font-size:15px;
+      position:relative;
+      overflow:hidden;
+    }
+    .btn:hover{transform:translate(-2px,-2px); box-shadow:8px 8px 0 #111111}
+    .btn:active{transform:translate(1px,1px); box-shadow:2px 2px 0 #111111}
+    .btn-yellow{background:var(--yellow)}
+    .btn-green{background:var(--green)}
+    .btn-cyan{background:var(--cyan)}
+    .btn-white{background:#fff}
+    .btn-black{background:#111;color:#fff}
+
+    .mono{font-family:var(--mono)}
+
+    /* PRELOADER */
+    .preloader{
+      position:fixed;
+      inset:0;
+      top:0;
+      left:0;
+      width:100vw;
+      height:100vh;
+      min-height:100svh;
+      min-height:100dvh;
+      z-index:999999;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(127,220,255,.12), transparent 20%),
+        radial-gradient(circle at 80% 20%, rgba(255,122,206,.12), transparent 22%),
+        #111111;
+      color:#fff;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      transition:opacity .55s var(--ease), visibility .55s var(--ease);
+    }
+    .preloader.hide{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+    .preloader-box{
+      width:min(86vw, 640px);
+      max-width:640px;
+      border:var(--line);
+      border-radius:28px;
+      background:#1d1d1d;
+      box-shadow:10px 10px 0 #ffffff;
+      overflow:hidden;
+      margin:auto;
+    }
+    .preloader-top{
+      padding:14px 16px;
+      border-bottom:4px solid #fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background:#2a2a2a;
+      font:800 12px var(--mono);
+      letter-spacing:.04em;
+    }
+    .preloader-dots{display:flex;gap:8px}
+    .preloader-dots span{
+      width:12px;height:12px;border-radius:50%;
+      border:2px solid #fff;
+      display:block;
+    }
+    .preloader-dots span:nth-child(1){background:var(--yellow)}
+    .preloader-dots span:nth-child(2){background:var(--green)}
+    .preloader-dots span:nth-child(3){background:var(--pink)}
+
+    .preloader-body{
+      display:grid;
+      gap:20px;
+      padding:22px;
+    }
+    .preloader-title{
+      display:grid;
+      gap:8px;
+    }
+    .preloader-title h1{
+      font-size:clamp(34px, 5vw, 58px);
+      line-height:.94;
+      letter-spacing:-.06em;
+    }
+    .preloader-title p{
+      color:#f2f2f2;
+      opacity:.9;
+      line-height:1.8;
+      font-size:14px;
+      font-family:var(--mono);
+    }
+    .preloader-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .preloader-tags span{
+      padding:9px 13px;
+      border:4px solid #fff;
+      border-radius:999px;
+      font:800 12px var(--mono);
+    }
+    .preloader-tags span:nth-child(1){background:var(--yellow);color:#111}
+    .preloader-tags span:nth-child(2){background:var(--cyan);color:#111}
+    .preloader-tags span:nth-child(3){background:var(--pink);color:#111}
+    .preloader-progress{
+      border:4px solid #fff;
+      border-radius:999px;
+      height:28px;
+      overflow:hidden;
+      background:#292929;
+      box-shadow:5px 5px 0 #fff;
+    }
+    .preloader-progress span{
+      display:block;
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--yellow), var(--green), var(--cyan));
+      animation:loaderFill 2.8s var(--ease) forwards;
+    }
+    @keyframes loaderFill{
+      from{width:0%}
+      to{width:100%}
+    }
+    .preloader-code{
+      display:grid;
+      gap:8px;
+      font:700 13px/1.6 var(--mono);
+      color:#d7d7d7;
+    }
+    .preloader-code .line{
+      opacity:0;
+      transform:translateY(8px);
+      animation:preCode .5s var(--ease) forwards;
+    }
+    .preloader-code .line:nth-child(1){animation-delay:.15s}
+    .preloader-code .line:nth-child(2){animation-delay:.3s}
+    .preloader-code .line:nth-child(3){animation-delay:.45s}
+    @keyframes preCode{
+      to{opacity:1;transform:none}
+    }
+
+    .terminal-box{
+      position:relative;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)),
+        #151515;
+    }
+    .terminal-box::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent 26%, transparent 74%, rgba(255,255,255,.04));
+      opacity:.6;
+    }
+
+    .project-thumb{
+      position:relative;
+      overflow:hidden;
+    }
+    .project-thumb img{
+      transition:transform .45s var(--ease), filter .45s var(--ease);
+    }
+    .project:hover .project-thumb img{
+      transform:scale(1.06);
+      filter:contrast(1.03) saturate(1.04);
+    }
+    .project-thumb::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.06) 0px,
+        rgba(255,255,255,.06) 2px,
+        transparent 2px,
+        transparent 6px
+      );
+      mix-blend-mode:soft-light;
+      opacity:.45;
+      pointer-events:none;
+      z-index:1;
+    }
+    .project-thumb::after{
+      content:"";
+      position:absolute;
+      top:0;
+      left:-120%;
+      width:70%;
+      height:100%;
+      transform:skewX(-18deg);
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      transition:left .6s var(--ease);
+      pointer-events:none;
+      z-index:2;
+    }
+    .project:hover .project-thumb::after{
+      left:150%;
+    }
+
+    .section-head h2{
+      position:relative;
+      width:max-content;
+      max-width:100%;
+    }
+    .section-head h2::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-8px;
+      width:min(180px, 46%);
+      height:8px;
+      border:var(--line);
+      border-radius:999px;
+      background:var(--yellow);
+      box-shadow:4px 4px 0 #111111;
+    }
+
+    @keyframes avatarFloat{
+      0%,100%{transform:rotate(-2deg) translateY(0)}
+      50%{transform:rotate(-1deg) translateY(-4px)}
+    }
+
+
+
+    
+    .music-section{
+      padding-top:54px;
+      padding-bottom:28px;
+    }
+    .music-console{
+      overflow:hidden;
+      background:linear-gradient(180deg, #fffaf0 0%, #ffffff 100%);
+    }
+    .music-console-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 16px;
+      background:#111;
+      color:#fff;
+      border-bottom:var(--line);
+      font:800 12px var(--mono);
+      letter-spacing:.04em;
+    }
+    .music-dots{
+      display:flex;
+      gap:8px;
+    }
+    .music-dots span{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      border:2px solid #fff;
+      display:block;
+    }
+    .music-dots span:nth-child(1){background:var(--yellow)}
+    .music-dots span:nth-child(2){background:var(--green)}
+    .music-dots span:nth-child(3){background:var(--pink)}
+
+    .music-console-body{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:20px;
+      padding:22px;
+      align-items:start;
+    }
+    .music-meta h3{
+      font-size:30px;
+      line-height:1.03;
+      margin:14px 0 10px;
+      font-weight:800;
+      letter-spacing:-.04em;
+    }
+    .music-meta p{
+      font-size:15px;
+      line-height:1.85;
+    }
+
+    .music-controls{
+      display:grid;
+      gap:16px;
+    }
+    .music-status-line{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .music-buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .playlist-shell{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      gap:10px;
+      align-items:center;
+    }
+    .playlist-arrow{
+      width:52px;
+      height:52px;
+      display:grid;
+      place-items:center;
+      border:var(--line);
+      border-radius:16px;
+      box-shadow:4px 4px 0 #111111;
+      background:#fff;
+      font:800 28px/1 var(--mono);
+      cursor:pointer;
+      transition:transform .16s var(--ease), box-shadow .16s var(--ease), background .16s var(--ease);
+    }
+    .playlist-arrow:hover{
+      transform:translate(-2px,-2px);
+      box-shadow:7px 7px 0 #111111;
+      background:var(--yellow);
+    }
+
+    .music-track-rail{
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      scroll-behavior:smooth;
+      padding:6px 4px 10px;
+      scrollbar-width:none;
+    }
+    .music-track-rail::-webkit-scrollbar{
+      display:none;
+    }
+
+    
+    .track-card{
+      min-width:228px;
+      max-width:228px;
+      padding:12px;
+      display:grid;
+      gap:12px;
+      text-align:left;
+      border:var(--line);
+      border-radius:22px;
+      box-shadow:4px 4px 0 #111111;
+      background:#fff;
+      cursor:pointer;
+      scroll-snap-align:start;
+      transition:
+        transform .24s var(--ease),
+        box-shadow .24s var(--ease),
+        background .24s var(--ease),
+        border-radius .24s var(--ease);
+      overflow:hidden;
+      position:relative;
+      isolation:isolate;
+    }
+    .track-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(115deg, transparent 0 44%, rgba(255,255,255,.42) 50%, transparent 58%);
+      transform:translateX(-140%) skewX(-18deg);
+      transition:transform .65s var(--ease);
+      pointer-events:none;
+      z-index:2;
+    }
+    .track-card:hover::after{
+      transform:translateX(160%) skewX(-18deg);
+    }
+    .track-card:hover{
+      transform:translate(-3px,-3px);
+      box-shadow:8px 8px 0 #111111;
+      background:#fff9de;
+    }
+    .track-card.active{
+      background:linear-gradient(135deg, var(--yellow), var(--cyan));
+      transform:translate(-2px,-2px);
+      box-shadow:7px 7px 0 #111111;
+    }
+    .track-thumb{
+      position:relative;
+      width:100%;
+      aspect-ratio:16/10;
+      border:var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:4px 4px 0 #111111;
+      background:#fff;
+    }
+    .track-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .45s var(--ease), filter .45s var(--ease);
+      display:block;
+    }
+    .track-card:hover .track-thumb img,
+    .track-card.active .track-thumb img{
+      transform:scale(1.06);
+      filter:saturate(1.05) contrast(1.04);
+    }
+    .track-thumb::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.05), transparent 35%, transparent 70%, rgba(0,0,0,.14)),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,.08) 0px,
+          rgba(255,255,255,.08) 2px,
+          transparent 2px,
+          transparent 6px
+        );
+      pointer-events:none;
+      z-index:1;
+      mix-blend-mode:soft-light;
+    }
+    .track-overlay{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      z-index:2;
+      padding:6px 10px;
+      border:3px solid #111;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      box-shadow:3px 3px 0 #111111;
+      font:800 10px var(--mono);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .track-content{
+      display:grid;
+      gap:6px;
+      position:relative;
+      z-index:1;
+    }
+    .track-mini{
+      font:800 11px var(--mono);
+      opacity:.8;
+    }
+    .track-card strong{
+      font-size:18px;
+      line-height:1.08;
+    }
+    .track-card small{
+      font:700 12px/1.5 var(--mono);
+      opacity:.75;
+    }
+
+
+    .music-progress-wrap{
+      display:grid;
+      gap:10px;
+    }
+    .music-time{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      font:800 12px var(--mono);
+      letter-spacing:.03em;
+    }
+    .music-progress{
+      position:relative;
+      height:24px;
+      border:var(--line);
+      border-radius:999px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow:4px 4px 0 #111111;
+      cursor:pointer;
+    }
+    .music-progress::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(17,17,17,.05) 0px,
+          rgba(17,17,17,.05) 8px,
+          transparent 8px,
+          transparent 16px
+        );
+      pointer-events:none;
+    }
+    .music-progress span{
+      display:block;
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--yellow), var(--green), var(--cyan), var(--pink));
+      border-right:4px solid #111;
+      border-radius:999px;
+      transition:width .10s linear;
+      position:relative;
+    }
+    .music-progress span::after{
+      content:"";
+      position:absolute;
+      right:-2px;
+      top:50%;
+      width:18px;
+      height:18px;
+      border:3px solid #111;
+      border-radius:50%;
+      background:#fff;
+      transform:translateY(-50%);
+      box-shadow:2px 2px 0 #111111;
+    }
+
+    .music-visualizer{
+      height:84px;
+      display:flex;
+      align-items:flex-end;
+      gap:10px;
+      padding:14px 16px;
+      border:var(--line);
+      border-radius:20px;
+      box-shadow:5px 5px 0 #111111;
+      background:#111;
+    }
+    .music-visualizer span{
+      width:14px;
+      border-radius:999px 999px 6px 6px;
+      background:linear-gradient(180deg, var(--yellow), var(--green), var(--cyan));
+      animation:musicBars 1.2s ease-in-out infinite;
+      transform-origin:bottom center;
+      height:24px;
+    }
+    .music-visualizer span:nth-child(1){animation-delay:.1s}
+    .music-visualizer span:nth-child(2){animation-delay:.25s}
+    .music-visualizer span:nth-child(3){animation-delay:.4s}
+    .music-visualizer span:nth-child(4){animation-delay:.15s}
+    .music-visualizer span:nth-child(5){animation-delay:.52s}
+    .music-visualizer span:nth-child(6){animation-delay:.3s}
+    .music-visualizer span:nth-child(7){animation-delay:.45s}
+    @keyframes musicBars{
+      0%,100%{height:18px}
+      20%{height:54px}
+      45%{height:28px}
+      70%{height:64px}
+    }
+      20%{height:54px}
+      45%{height:28px}
+      70%{height:64px}
+    }
+
+    .music-console.paused .music-visualizer span,
+    .music-console.stopped .music-visualizer span{
+      animation-play-state:paused;
+      height:18px;
+    }
+
+
+    .nav-wrap{
+      position:sticky;
+      top:0;
+      z-index:120;
+      padding-top:14px;
+    }
+    .nav{
+      background:rgba(255,250,240,.92);
+      backdrop-filter:blur(10px);
+      padding:16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+    }
+    .brand-badge{
+      width:50px;height:50px;
+      display:grid;place-items:center;
+      border:var(--line);
+      border-radius:18px;
+      background:var(--yellow);
+      box-shadow:5px 5px 0 #111111;
+      font-size:22px;
+      transition:transform .2s var(--ease);
+    }
+    .brand:hover .brand-badge{transform:rotate(-8deg) scale(1.04)}
+    .brand small{
+      display:block;
+      font:800 11px var(--mono);
+      opacity:.74;
+      letter-spacing:.06em;
+    }
+    .brand strong{
+      font-size:21px;
+      line-height:1.05;
+      display:block;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      font-weight:800;
+      flex-wrap:wrap;
+    }
+    .nav-links a{
+      padding:8px 10px;
+      border-radius:14px;
+      transition:transform .15s var(--ease), background .15s var(--ease);
+      position:relative;
+    }
+    .nav-links a:hover{
+      background:#fff0a8;
+      transform:translateY(-1px);
+    }
+
+    .menu-btn{
+      width:54px;height:54px;
+      display:none;
+      place-items:center;
+      border:var(--line);
+      border-radius:18px;
+      background:#fff;
+      box-shadow:4px 4px 0 #111111;
+      cursor:pointer;
+      position:relative;
+      flex:0 0 auto;
+      transition:transform .18s var(--ease), box-shadow .18s var(--ease);
+    }
+    .menu-btn:hover{transform:translate(-2px,-2px); box-shadow:7px 7px 0 #111111}
+    .menu-btn span{
+      position:absolute;
+      width:22px;
+      height:3px;
+      background:#111;
+      border-radius:4px;
+      transition:transform .28s var(--ease), opacity .22s var(--ease), top .28s var(--ease);
+    }
+    .menu-btn span:nth-child(1){top:18px}
+    .menu-btn span:nth-child(2){top:25px}
+    .menu-btn span:nth-child(3){top:32px}
+    .menu-btn.active span:nth-child(1){top:25px; transform:rotate(45deg)}
+    .menu-btn.active span:nth-child(2){opacity:0}
+    .menu-btn.active span:nth-child(3){top:25px; transform:rotate(-45deg)}
+
+    .hero{
+      padding:44px 0 28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-main{
+      padding:34px;
+      background:linear-gradient(180deg, #fffaf0 0%, #ffffff 100%);
+      overflow:hidden;
+    }
+    .hero-noise{
+      position:absolute;
+      inset:auto -50px -50px auto;
+      width:220px;height:220px;
+      border:var(--line);
+      border-radius:50%;
+      background:var(--pink);
+      opacity:.24;
+      box-shadow:var(--shadow-sm);
+      transform:rotate(14deg);
+    }
+    .hero-split{
+      display:grid;
+      grid-template-columns:1.12fr .88fr;
+      gap:28px;
+      align-items:start;
+    }
+    .hero-left, .hero-right{min-width:0}
+    .hero-right{display:grid;gap:26px;align-content:start;padding-top:18px}
+
+    .hero-top{
+      display:flex;
+      align-items:center;
+      gap:24px;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+    }
+    .hero-avatar{
+      width:272px;
+      height:272px;
+      border:var(--line);
+      border-radius:36px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow:8px 8px 0 #111111;
+      transform:rotate(-2deg);
+      flex:0 0 auto;
+      animation:avatarFloat 4.8s ease-in-out infinite;
+    }
+    .hero-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    
+    .hero h1{
+      font-size:clamp(42px, 6.2vw, 78px);
+      line-height:.94;
+      letter-spacing:-.06em;
+      font-weight:800;
+      margin-top:8px;
+    }
+    .hero h1 .outline{
+      position:relative;
+      display:inline-block;
+      color:#fff;
+      -webkit-text-stroke:4px #111;
+      paint-order:stroke fill;
+      margin-top:8px;
+    }
+    .hero h1 .accent{
+      display:inline-block;
+      transform:rotate(-1deg);
+      background:var(--yellow);
+      border:var(--line);
+      border-radius:18px;
+      box-shadow:6px 6px 0 #111111;
+      padding:2px 12px 8px;
+      margin-top:14px;
+    }
+    .hero p{
+      margin-top:18px;
+      max-width:760px;
+      font-size:17px;
+      line-height:1.9;
+    }
+
+    .hero-title-note{
+      display:inline-flex;
+      margin-top:18px;
+      padding:10px 14px;
+      border:var(--line);
+      border-radius:16px;
+      box-shadow:4px 4px 0 #111111;
+      background:var(--pink);
+      font:800 12px var(--mono);
+      transform:rotate(-1deg);
+    }
+    .hero-subline{
+      margin-top:16px;
+      max-width:720px;
+      font-size:16px;
+      line-height:1.85;
+    }
+
+    
+    .hero-meta-line{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+      align-items:center;
+    }
+
+    
+    .contact-direct{
+      padding:10px 14px;
+      border:var(--line);
+      border-radius:16px;
+      box-shadow:4px 4px 0 #111111;
+      background:#fff;
+      font:800 14px var(--mono);
+    }
+
+    #typedText{
+      position:relative;
+      display:block;
+      min-height:1.8em;
+      width:100%;
+      white-space:normal;
+      word-break:break-word;
+      transform:translateZ(0);
+      will-change:contents, opacity, transform;
+      pointer-events:none;
+    }
+    #typedText .shard{
+      display:inline-block;
+      white-space:pre;
+      will-change:transform, opacity, filter;
+      transform-origin:center center;
+    }
+    #typedText.shattering .shard{
+      animation:shatterOut 1.15s cubic-bezier(.18,.82,.22,1) forwards;
+      animation-delay:calc(var(--i) * .004s);
+    }
+    @keyframes shatterOut{
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0deg) scale(1);
+        filter:blur(0);
+      }
+      22%{
+        opacity:1;
+        transform:translate(0,0) rotate(0deg) scale(1.02);
+        filter:blur(0);
+      }
+      100%{
+        opacity:0;
+        transform:translate(var(--tx), var(--ty)) rotate(var(--tr)) scale(.55);
+        filter:blur(4px);
+      }
+    }
+
+    .terminal-box{
+      position:relative;
+      isolation:isolate;
+    }
+    .terminal-box::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:0;
+      z-index:2;
+      background:
+        linear-gradient(115deg, transparent 0 42%, rgba(255,255,255,.28) 42% 43%, transparent 43% 100%),
+        linear-gradient(72deg, transparent 0 57%, rgba(255,255,255,.18) 57% 58%, transparent 58% 100%),
+        linear-gradient(142deg, transparent 0 64%, rgba(255,255,255,.14) 64% 65%, transparent 65% 100%);
+      transition:opacity .22s ease;
+      mix-blend-mode:screen;
+    }
+    .terminal-box.crack::before{
+      opacity:1;
+      animation:crackFlash 1.1s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    .terminal-box.crack{
+      animation:terminalCrack 1.05s cubic-bezier(.2,.82,.24,1);
+      box-shadow:8px 8px 0 #111111, 0 0 0 2px rgba(255,255,255,.10) inset;
+    }
+    @keyframes crackFlash{
+      0%{opacity:0}
+      18%{opacity:.92}
+      58%{opacity:.65}
+      100%{opacity:0}
+    }
+    @keyframes terminalCrack{
+      0%{transform:translateX(0) rotate(0deg)}
+      12%{transform:translateX(-2px) rotate(-.12deg)}
+      24%{transform:translateX(3px) rotate(.14deg)}
+      40%{transform:translateX(-2px) rotate(-.08deg)}
+      56%{transform:translateX(2px) rotate(.08deg)}
+      72%{transform:translateX(-1px) rotate(-.04deg)}
+      100%{transform:none}
+    }
+
+
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+    .hero-badges .code-chip{font-size:11px}
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+    .hero-code-line{
+      margin-top:18px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:22px;
+    }
+    .hero-stat{
+      padding:18px;
+      background:#fff;
+    }
+    .hero-stat h3{
+      font:800 30px/1 var(--mono);
+      margin-bottom:8px;
+    }
+    .hero-stat p{
+      margin:0;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .hero-side-panel{
+      background:linear-gradient(135deg, var(--cyan), var(--pink));
+      padding:18px;
+      border:var(--line);
+      border-radius:24px;
+      box-shadow:6px 6px 0 #111111;
+    }
+    .hero-side-panel h3{
+      font-size:26px;
+      line-height:1.03;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .hero-side-panel p{
+      font-size:15px;
+      line-height:1.85;
+      margin:0;
+    }
+    .floating-notes{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .note{
+      padding:14px;
+      border:var(--line);
+      border-radius:18px;
+      box-shadow:4px 4px 0 #111111;
+      font:800 14px/1.5 var(--mono);
+      transition:transform .18s var(--ease);
+    }
+    .note:hover{transform:translateY(-2px)}
+    .note.yellow{background:var(--yellow)}
+    .note.green{background:var(--green)}
+    .note.cyan{background:var(--cyan)}
+    .note.pink{background:var(--pink)}
+
+    .typing-row{
+      margin-top:24px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .terminal-box{
+      min-width:320px;
+      max-width:100%;
+      background:#151515;
+      color:#fff;
+      border:var(--line);
+      border-radius:20px;
+      box-shadow:6px 6px 0 #111111;
+      overflow:hidden;
+      width:100%;
+    }
+    .terminal-head{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 14px;
+      border-bottom:3px solid #fff;
+      background:#2a2a2a;
+      font:700 12px var(--mono);
+    }
+    .dot{
+      width:11px;height:11px;border-radius:50%;
+      border:2px solid #fff;
+      background:var(--yellow);
+    }
+    .dot:nth-child(2){background:var(--green)}
+    .dot:nth-child(3){background:var(--red)}
+    .terminal-body{
+      padding:18px 20px 22px;
+      font:700 15px/1.8 var(--mono);
+      min-height:86px;
+      word-break:break-word;
+    }
+    .prompt{color:#7cffb0}
+
+    .terminal-line{
+      --prompt-space: clamp(120px, 28vw, 160px);
+      position:relative;
+      display:block;
+      width:100%;
+      min-height:100%;
+      padding-left:var(--prompt-space);
+      padding-right:4px;
+    }
+    .prompt{
+      position:absolute;
+      left:0;
+      top:0;
+      width:calc(var(--prompt-space) - 10px);
+      white-space:nowrap;
+    }
+    .cursor{
+      position:static;
+      display:inline-block;
+      margin-left:2px;
+      vertical-align:baseline;
+    }
+    .cursor{
+      display:inline-block;
+      width:10px;
+      animation:blink 1s step-end infinite;
+    }
+    @keyframes blink{50%{opacity:0}}
+
+    .code-window{
+      padding:18px;
+      background:var(--paper);
+    }
+    .code-window .window{
+      border:var(--line);
+      border-radius:20px;
+      background:#111;
+      color:#fff;
+      overflow:hidden;
+      box-shadow:6px 6px 0 #111111;
+    }
+    .window-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 14px;
+      background:#222;
+      border-bottom:3px solid #fff;
+      font:700 12px var(--mono);
+    }
+    .code-body{
+      padding:16px;
+      font:700 13px/1.9 var(--mono);
+    }
+    .code-body .k{color:#8ed7ff}
+    .code-body .f{color:#7dffa7}
+    .code-body .s{color:#ffd98a}
+    .code-body .c{color:#ff92d5}
+
+    .ticker-wrap{
+      margin-top:34px;
+      overflow:hidden;
+      padding:16px;
+      background:#111;
+      color:#fff;
+      border-top:var(--line);
+      border-bottom:var(--line);
+    }
+    .ticker{
+      display:flex;
+      width:max-content;
+      gap:22px;
+      animation:ticker 22s linear infinite;
+      font:800 14px var(--mono);
+    }
+    .ticker span{
+      padding:9px 14px;
+      border:3px solid #fff;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      white-space:nowrap;
+    }
+    @keyframes ticker{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+
+    .section-head{
+      margin-bottom:24px;
+      max-width:760px;
+    }
+    .section-head h2{
+      font-size:clamp(36px, 5vw, 56px);
+      line-height:.96;
+      letter-spacing:-.06em;
+      margin:14px 0 14px;
+      font-weight:800;
+    }
+    .section-head p{
+      font-size:16px;
+      line-height:1.9;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:20px;
+    }
+    .info-box{padding:28px}
+    .info-box h3{
+      font-size:29px;
+      line-height:1.03;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .info-box p{
+      font-size:15px;
+      line-height:1.88;
+    }
+    .list{
+      margin-top:16px;
+      display:grid;
+      gap:12px;
+    }
+    .list div{
+      padding:14px 16px;
+      border:var(--line);
+      border-radius:16px;
+      box-shadow:4px 4px 0 #111111;
+      font:800 14px/1.5 var(--mono);
+      background:#fff;
+    }
+
+    .config-section{padding-top:20px}
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+    .project{padding:26px; overflow:hidden}
+    .project:nth-child(1){background:var(--yellow)}
+    .project:nth-child(2){background:var(--green)}
+    .project-thumb{
+      width:100%;
+      aspect-ratio:16/9;
+      border:var(--line);
+      border-radius:22px;
+      box-shadow:5px 5px 0 #111111;
+      overflow:hidden;
+      background:#fff;
+      margin-bottom:18px;
+    }
+    .project-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .project-icon{
+      width:56px;height:56px;
+      display:grid;place-items:center;
+      border:var(--line);
+      border-radius:18px;
+      box-shadow:4px 4px 0 #111111;
+      background:#fff;
+      font-size:26px;
+      margin-bottom:16px;
+    }
+    .project h3{
+      font-size:30px;
+      line-height:1.02;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .project p{font-size:15px; line-height:1.85}
+    .tech-stack{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+      margin-bottom:20px;
+    }
+    .tech-stack span{
+      padding:8px 12px;
+      border:var(--line);
+      border-radius:999px;
+      background:#fff;
+      box-shadow:4px 4px 0 #111111;
+      font:800 12px var(--mono);
+    }
+    .project-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:6px;
+    }
+
+    .skills-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+    .skill-card{
+      padding:24px;
+      background:#fff;
+    }
+    .skill-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:14px;
+    }
+    .skill-name{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:24px;
+      font-weight:800;
+    }
+    .skill-percent{
+      font:800 24px var(--mono);
+      min-width:60px;
+      text-align:right;
+    }
+    .skill-bar{
+      width:100%;
+      height:26px;
+      border:var(--line);
+      border-radius:999px;
+      background:#fff4ca;
+      overflow:hidden;
+      box-shadow:4px 4px 0 #111111;
+    }
+    .skill-fill{
+      height:100%;
+      width:0;
+      border-right:4px solid #111;
+      transition:width 1.4s cubic-bezier(.2,.8,.2,1);
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      padding-right:8px;
+      font:800 12px var(--mono);
+      color:#111;
+    }
+    .skill-card:nth-child(1) .skill-fill{background:var(--yellow)}
+    .skill-card:nth-child(2) .skill-fill{background:var(--cyan)}
+    .skill-card:nth-child(3) .skill-fill{background:var(--pink)}
+    .skill-card:nth-child(4) .skill-fill{background:var(--green)}
+
+    .cta{
+      padding:32px;
+      background:linear-gradient(135deg, var(--yellow), var(--pink));
+      overflow:hidden;
+    }
+    .cta::after{
+      content:"";
+      position:absolute;
+      right:-30px;
+      bottom:-30px;
+      width:160px;height:160px;
+      border:var(--line);
+      border-radius:50%;
+      background:rgba(255,255,255,.32);
+      box-shadow:var(--shadow-sm);
+      transform:rotate(10deg);
+      opacity:.7;
+    }
+    .cta-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+      align-items:center;
+      position:relative;
+      z-index:1;
+    }
+    .cta h2{
+      font-size:clamp(36px, 5vw, 62px);
+      line-height:.94;
+      font-weight:800;
+      letter-spacing:-.06em;
+      margin-top:14px;
+    }
+    .cta p{
+      margin-top:14px;
+      font-size:16px;
+      line-height:1.9;
+      max-width:680px;
+    }
+    .cta-side{
+      display:grid;
+      justify-items:start;
+      gap:14px;
+    }
+
+
+    .contact-terminal{
+      overflow:hidden;
+      background:linear-gradient(180deg, #fffaf0 0%, #ffffff 100%);
+    }
+    .contact-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 16px;
+      background:#111;
+      color:#fff;
+      border-bottom:var(--line);
+      font:800 12px var(--mono);
+      letter-spacing:.04em;
+    }
+    .contact-dots{
+      display:flex;
+      gap:8px;
+    }
+    .contact-dots span{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      border:2px solid #fff;
+      display:block;
+    }
+    .contact-dots span:nth-child(1){background:var(--yellow)}
+    .contact-dots span:nth-child(2){background:var(--green)}
+    .contact-dots span:nth-child(3){background:var(--pink)}
+
+    .contact-body{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:24px;
+      padding:24px;
+      align-items:start;
+    }
+    .contact-copy h2{
+      font-size:clamp(34px, 5vw, 56px);
+      line-height:.95;
+      letter-spacing:-.06em;
+      margin:14px 0 14px;
+      font-weight:800;
+    }
+    .contact-copy p{
+      font-size:16px;
+      line-height:1.9;
+      max-width:640px;
+    }
+    .contact-code-lines{
+      display:grid;
+      gap:12px;
+      margin-top:20px;
+    }
+    .contact-code-lines div{
+      padding:14px 16px;
+      border:var(--line);
+      border-radius:18px;
+      box-shadow:4px 4px 0 #111111;
+      background:#fff;
+      font:800 14px/1.6 var(--mono);
+    }
+    .contact-code-lines strong{
+      color:#111;
+    }
+
+    
+    .contact-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:14px;
+    }
+    .contact-map-card{
+      grid-column:1 / -1;
+      display:grid;
+      gap:12px;
+      padding:18px;
+      border:var(--line);
+      border-radius:24px;
+      box-shadow:6px 6px 0 #111111;
+      background:linear-gradient(135deg, #fff, #eef9ff);
+      overflow:hidden;
+      position:relative;
+    }
+    .contact-map-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(115deg, transparent 0 44%, rgba(255,255,255,.35) 50%, transparent 58%);
+      transform:translateX(-140%) skewX(-18deg);
+      transition:transform .65s var(--ease);
+      pointer-events:none;
+    }
+    .contact-map-card:hover::after{
+      transform:translateX(160%) skewX(-18deg);
+    }
+    .contact-map-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .contact-map-head a{
+      padding:8px 12px;
+      border:var(--line);
+      border-radius:999px;
+      box-shadow:4px 4px 0 #111111;
+      background:#fff;
+      font:800 12px var(--mono);
+    }
+    .contact-map-frame{
+      border:var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:5px 5px 0 #111111;
+      background:#fff;
+      min-height:300px;
+      position:relative;
+    }
+    .contact-map-frame iframe{
+      display:block;
+      width:100%;
+      height:300px;
+      border:0;
+      filter:contrast(1.02) saturate(1.02);
+    }
+    .contact-map-caption{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px 14px;
+    }
+    .contact-map-caption strong{
+      font-size:18px;
+      line-height:1.1;
+    }
+    .contact-map-caption small{
+      font:700 12px/1.5 var(--mono);
+      opacity:.8;
+    }
+    .contact-card{
+      position:relative;
+      display:grid;
+      gap:8px;
+      padding:18px;
+      border:var(--line);
+      border-radius:22px;
+      box-shadow:5px 5px 0 #111111;
+      background:#fff;
+      transition:transform .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease);
+      overflow:hidden;
+    }
+    .contact-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(115deg, transparent 0 44%, rgba(255,255,255,.42) 50%, transparent 58%);
+      transform:translateX(-140%) skewX(-18deg);
+      transition:transform .65s var(--ease);
+      pointer-events:none;
+    }
+    .contact-card:hover{
+      transform:translate(-3px,-3px);
+      box-shadow:8px 8px 0 #111111;
+      background:#fff8d5;
+    }
+    .contact-card:hover::after{
+      transform:translateX(160%) skewX(-18deg);
+    }
+    .contact-card:nth-child(2){background:linear-gradient(135deg, #fff, #eef9ff)}
+    .contact-card:nth-child(3){background:linear-gradient(135deg, #fff, #f3fff4)}
+    .contact-card:nth-child(4){background:linear-gradient(135deg, #fff, #fff2fb)}
+    .contact-status-card{background:linear-gradient(135deg, var(--yellow), var(--cyan))}
+    .contact-label{
+      font:800 12px var(--mono);
+      opacity:.85;
+      letter-spacing:.04em;
+    }
+    .contact-card strong{
+      font-size:20px;
+      line-height:1.15;
+      word-break:break-word;
+    }
+    .contact-card small{
+      font:700 12px/1.6 var(--mono);
+      opacity:.8;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .status-ping{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--green);
+      border:2px solid #111;
+      box-shadow:0 0 0 4px rgba(56,226,124,.18);
+      animation:statusPulse 1.8s ease-in-out infinite;
+      display:inline-block;
+    }
+    @keyframes statusPulse{
+      0%,100%{transform:scale(1); box-shadow:0 0 0 0 rgba(56,226,124,.18)}
+      60%{transform:scale(1.08); box-shadow:0 0 0 6px rgba(56,226,124,0)}
+    }
+
+
+    .footer-box{
+      padding:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-weight:800;
+      background:#fff;
+    }
+
+    .wa-float{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:130;
+      width:66px;height:66px;
+      display:grid;place-items:center;
+      border:var(--line);
+      border-radius:22px;
+      box-shadow:6px 6px 0 #111111;
+      background:var(--green);
+      font-size:27px;
+      transition:transform .16s var(--ease), box-shadow .16s var(--ease);
+      animation:bounceFloat 2.8s ease-in-out infinite;
+    }
+    .wa-float:hover{transform:translate(-2px,-2px); box-shadow:9px 9px 0 #111111}
+    @keyframes bounceFloat{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-6px)}
+    }
+
+    /* scroll assemble animations */
+    .assemble{
+      opacity:0;
+      transition:opacity .72s var(--ease), transform .72s var(--ease), filter .72s var(--ease);
+      filter:blur(2px);
+      will-change:opacity,transform,filter;
+    }
+    .assemble-left{transform:translateX(-34px) rotate(-1deg)}
+    .assemble-right{transform:translateX(34px) rotate(1deg)}
+    .assemble-up{transform:translateY(34px) scale(.985)}
+    .assemble-pop{transform:translateY(18px) scale(.94)}
+    .assemble.show{
+      opacity:1;
+      transform:none;
+      filter:none;
+    }
+    .assemble[data-delay="1"]{transition-delay:.06s}
+    .assemble[data-delay="2"]{transition-delay:.12s}
+    .assemble[data-delay="3"]{transition-delay:.18s}
+    .assemble[data-delay="4"]{transition-delay:.24s}
+
+    .menu-panel{
+      opacity:0;
+      transform:translateY(-10px) scale(.98);
+      transform-origin:top center;
+      pointer-events:none;
+      transition:opacity .26s var(--ease), transform .26s var(--ease);
+    }
+
+    @media (max-width: 1080px){
+      .hero-split, .about-grid, .cta-grid{grid-template-columns:1fr}
+      .projects-grid, .skills-grid{grid-template-columns:1fr}
+      .hero-avatar{width:154px;height:154px}
+      .hero-stats{grid-template-columns:1fr}
+    }
+
+    @media (max-width: 780px){
+
+      .contact-body{
+        grid-template-columns:1fr;
+        padding:18px;
+      }
+      .contact-copy h2{
+        font-size:34px;
+      }
+      .contact-grid{
+        grid-template-columns:1fr;
+        gap:12px;
+      }
+      .contact-card{
+        padding:16px;
+      }
+      .contact-map-card{
+        padding:16px;
+      }
+      .contact-map-frame{
+        min-height:260px;
+      }
+      .contact-map-frame iframe{
+        height:260px;
+      }
+
+
+      .music-section{
+        padding-top:40px;
+        padding-bottom:18px;
+      }
+      .music-console-body{
+        grid-template-columns:1fr;
+        padding:18px;
+      }
+      .music-meta h3{
+        font-size:24px;
+      }
+      .music-buttons .btn{
+        width:100%;
+      }
+      .playlist-shell{
+        grid-template-columns:1fr;
+      }
+      .playlist-arrow{
+        width:100%;
+        height:48px;
+        font-size:24px;
+      }
+      .track-card{
+        min-width:210px;
+        max-width:210px;
+      }
+      .track-thumb{
+        border-radius:14px;
+      }
+
+      .music-progress{
+        height:20px;
+      }
+      .music-progress span::after{
+        width:16px;
+        height:16px;
+      }
+
+
+
+      .hero-main,
+      .code-window,
+      .footer-box,
+      .cta{
+        border-radius:22px;
+      }
+      .container{width:calc(100% - 10px)}
+      .section{padding:64px 0}
+      .preloader{
+        width:100vw;
+        height:100vh;
+        min-height:100svh;
+        min-height:100dvh;
+        padding:16px;
+      }
+      .preloader-box{
+        width:min(94vw, 680px);
+        margin:auto;
+      }
+      .menu-btn{display:grid}
+      .nav{position:relative;padding:14px 14px}
+      .nav-links{
+        position:absolute;
+        left:0;
+        right:0;
+        top:84px;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+        padding:16px;
+        background:#fff;
+        border:var(--line);
+        border-radius:22px;
+        box-shadow:var(--shadow-sm);
+      }
+      .nav-links a{width:100%; padding:10px 12px}
+      .menu-panel.open{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        pointer-events:auto;
+      }
+      .hero{padding-top:26px}
+      .hero-main, .code-window, .info-box, .project, .skill-card, .cta{padding:18px}
+      .floating-notes{grid-template-columns:1fr}
+      .hero-actions .btn, .cta-side .btn{width:100%}
+      .contact-direct{width:100%}
+      .terminal-body{min-height:280px;height:280px;padding:16px 16px 18px;font-size:14px;line-height:1.75}
+      .terminal-line{
+        --prompt-space: 0px;
+        padding-left:0;
+      }
+      .prompt{
+        position:static;
+        display:block;
+        width:auto;
+        margin-bottom:8px;
+      }
+      #typedText{
+        display:block;
+        position:relative;
+        left:auto;
+        top:auto;
+        right:auto;
+        width:100%;
+      }
+      .cursor{
+        position:static;
+        display:inline-block;
+      }
+      .terminal-box{min-width:unset; width:100%}
+      .wa-float{width:60px;height:60px;border-radius:18px}
+      .hero h1{font-size:clamp(36px, 11vw, 58px)}
+
+      .hero-meta-line{
+        margin-top:14px;
+      }
+      .hero-meta-line .code-chip{
+        max-width:100%;
+      }
+      .hero h1 .outline{-webkit-text-stroke:3px #111}
+      .hero-top{gap:14px}
+
+      .hero-main{padding:22px}
+      .hero-right{padding-top:18px;gap:20px}
+      .welcome-comment{
+        max-width:100%;
+        min-height:auto;
+        padding:18px 18px;
+        font-size:15px;
+        border-radius:28px;
+        margin-left:0;
+      }
+      .welcome-comment::after{
+        left:-10px;
+        top:50%;
+        bottom:auto;
+        width:18px;
+        height:18px;
+        transform:translateY(-50%) rotate(45deg);
+      }
+      .hero-title-note{
+        margin-top:16px;
+        max-width:100%;
+      }
+      .hero-badges{
+        margin-top:20px;
+      }
+      .section-head h2::after{
+        bottom:-10px;
+      }
+      .hero-avatar{width:190px;height:190px;border-radius:30px}
+
+      .comment-bubble,
+      .code-chip,
+      .btn,
+      .hero-avatar,
+      .project-thumb,
+      .terminal-box,
+      .window,
+      .skill-bar{
+        max-width:100%;
+      }
+      .hero-top{
+        overflow:hidden;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+      .menu-panel{opacity:1; transform:none; pointer-events:auto}
+      .assemble{opacity:1; transform:none; filter:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="preloader" id="preloader">
+    <div class="preloader-box">
+      <div class="preloader-top">
+        <div class="preloader-dots"><span></span><span></span><span></span></div>
+        <span>booting / panpan.portfolio</span>
+      </div>
+      <div class="preloader-body">
+        <div class="preloader-title">
+          <h1>Loading<br>Panpan.dev</h1>
+          <p>&gt; init profile • load terminal quote • compose sections • render smooth neobrutal UI</p>
+        </div>
+        <div class="preloader-tags">
+          <span>[+] neobrutal</span>
+          <span>{ coding aesthetic }</span>
+          <span>&gt; smooth experience</span>
+        </div>
+        <div class="preloader-progress"><span></span></div>
+        <div class="preloader-code">
+          <div class="line">const theme = "neobrutal-code";</div>
+          <div class="line">render("hero + projects + skills");</div>
+          <div class="line">status = "ready";</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="nav-wrap">
+    <div class="container">
+      <nav class="nav neo">
+        <a href="#landing" class="brand">
+          <div class="brand-badge">⌘</div>
+          <div>
+            <small>&gt; PANPAN.DEV</small>
+            <strong>WhatsApp Bot Builder</strong>
+          </div>
+        </a>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav-links menu-panel" id="navLinks">
+          <a href="#landing">[ home ]</a>
+          <a href="#about">[ about ]</a>
+          <a href="#projects">[ projects ]</a>
+          <a href="#skills">[ skills ]</a>
+          <a href="#contact">[ contact ]</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero" id="landing">
+      <div class="container">
+        <div class="hero-main neo assemble assemble-up show">
+          <div class="hero-noise"></div>
+
+          <div class="hero-split">
+            <div class="hero-left">
+              <div class="hero-top">
+                <div class="hero-avatar">
+                  <img src="https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-20/RenV-22542.jpeg" alt="Foto profil Panpan">
+                </div>
+              </div>
+
+              <h1>
+                Hello, I'm
+                <br>
+                <span class="outline">Pan Pan! 👋</span>
+                <br>
+                <span class="accent">from Indonesia</span>
+              </h1>
+
+              <div class="hero-title-note">[ WhatsApp automation • API systems • web interfaces ]</div>
+
+              <div class="hero-meta-line">
+                <span class="code-chip black">@panpan</span>
+              </div>
+
+              <div class="hero-badges">
+                <span class="code-chip yellow">Indonesia</span>
+                <span class="code-chip green">Available for Projects</span>
+                <span class="code-chip black">Online</span>
+              </div>
+
+              <p>
+                A passionate developer from Indonesia who loves creating innovative digital solutions.
+                I specialize in WhatsApp bot development and modern web applications, turning complex ideas
+                into user-friendly experiences.
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-green" href="https://wa.me/6285702107250?text=Halo%20Panpan%2C%20saya%20ingin%20kontak%20bot%20kamu." target="_blank">[ Contact Me ]</a>
+                <a class="btn btn-yellow" href="#projects">&gt; view_projects()</a>
+              </div>
+            </div>
+            </div>
+
+            <div class="hero-right">
+              <div class="typing-row" style="margin-top:8px;">
+                <div class="terminal-box">
+                  <div class="terminal-head">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <span>terminal / panpan.sh</span>
+                  </div>
+                  <div class="terminal-body">
+                    <div class="terminal-line"><span class="prompt">panpan@dev:~$</span> <span id="typedText"></span><span class="cursor">|</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticker-wrap">
+        <div class="ticker">
+          <span>&gt; WhatsApp Bot</span>
+          <span>[+] API Platform</span>
+          <span>{ Modern Web App }</span>
+          <span>&gt; Indonesia Developer</span>
+          <span>[ client_ready ]</span>
+          <span>{ innovation }</span>
+          <span>&gt; WhatsApp Bot</span>
+          <span>[+] API Platform</span>
+          <span>{ Modern Web App }</span>
+          <span>&gt; Indonesia Developer</span>
+          <span>[ client_ready ]</span>
+          <span>{ innovation }</span>
+        </div>
+      </div>
+    </section>
+
+    
+    
+<section class="section assemble assemble-up music-section">
+  <div class="container">
+    <div class="music-console neo">
+      <div class="music-console-top">
+        <div class="music-dots"><span></span><span></span><span></span></div>
+        <span>music.console / now-playing</span>
+      </div>
+
+      <div class="music-console-body">
+        <div class="music-meta">
+          <span class="eyebrow" style="background:var(--pink);">[ background_music ]</span>
+          <h3>Ambient tracks for the portfolio experience</h3>
+          <p>Auto starts after loading finishes, loops continuously, and can be paused anytime from this console. Swipe or scroll sideways to pick a track.</p>
+        </div>
+
+        <div class="music-controls">
+          <div class="music-status-line">
+            <span class="code-chip black" id="musicStatusChip">status: ready</span>
+            <span class="code-chip cyan" id="currentTrackChip">track: Love Me Not</span>
+          </div>
+
+          <div class="music-buttons">
+<button class="btn btn-green" id="playMusicBtn" type="button">[ PLAY ]</button>
+            <button class="btn btn-yellow" id="pauseMusicBtn" type="button">[ PAUSE ]</button>
+            <button class="btn btn-white" id="nextTrackBtn" type="button">[ NEXT ]</button>
+</div>
+
+          <div class="music-progress-wrap">
+            <div class="music-time">
+              <span id="musicCurrentTime">0:00</span>
+              <span id="musicDuration">0:00</span>
+            </div>
+            <div class="music-progress" id="musicProgress" aria-label="Music progress bar">
+              <span id="musicProgressBar"></span>
+            </div>
+          </div>
+
+          <div class="playlist-shell">
+            
+<div class="music-track-rail" id="musicTrackRail">
+              <button class="track-card active" data-track-index="0" type="button">
+                <div class="track-thumb">
+                  <img src="https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-25/RenV-30356.jpeg" alt="Love Me Not cover">
+                  <span class="track-overlay">track_01</span>
+                </div>
+                <div class="track-content">
+                  <span class="track-mini">[ track_01 ]</span>
+                  <strong>Love Me Not</strong>
+                  <small>main theme • loop</small>
+                </div>
+              </button>
+
+              <button class="track-card" data-track-index="1" type="button">
+                <div class="track-thumb">
+                  <img src="https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-25/RenV-30356.jpeg" alt="One Last Time cover">
+                  <span class="track-overlay">track_02</span>
+                </div>
+                <div class="track-content">
+                  <span class="track-mini">[ track_02 ]</span>
+                  <strong>One Last Time</strong>
+                  <small>side track • mellow</small>
+                </div>
+              </button>
+
+              <button class="track-card" data-track-index="2" type="button">
+                <div class="track-thumb">
+                  <img src="https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-25/RenV-30356.jpeg" alt="Impossible cover">
+                  <span class="track-overlay">track_03</span>
+                </div>
+                <div class="track-content">
+                  <span class="track-mini">[ track_03 ]</span>
+                  <strong>Impossible</strong>
+                  <small>alt track • emotional</small>
+                </div>
+              </button>
+            </div>
+
+            <button class="playlist-arrow" id="playlistNext" type="button" aria-label="Scroll right">›</button>
+          </div>
+
+          <div class="music-visualizer" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <audio id="bgMusic" preload="metadata" loop></audio>
+    </div>
+  </div>
+</section>
+
+
+
+    <section class="section assemble assemble-left" id="about">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" style="background:var(--green);">&gt; about_panpan</span>
+          <h2>Designing tools that make communication and workflow easier.</h2>
+          <p>
+            I build small but useful digital products focused on messaging, automation, and developer-friendly systems.
+            My approach is simple: make the interface clear, keep the logic clean, and create something that is actually helpful in daily use.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="info-box neo assemble assemble-up" data-delay="1" style="background:var(--yellow);">
+            <h3>About Me</h3>
+            <p>
+              I’m Panpan, an Indonesia-based developer who enjoys building WhatsApp bots, lightweight API services,
+              and web interfaces with a strong visual identity. I like turning complex ideas into tools that feel clean,
+              useful, and easy to understand.
+            </p>
+          </div>
+
+          <div class="info-box neo assemble assemble-right" data-delay="2" style="background:#fff;">
+            <h3>What I Usually Work On</h3>
+            <div class="list">
+              <div>WhatsApp bots for support, orders, and communities</div>
+              <div>REST APIs for integrations and developer tools</div>
+              <div>Landing pages and dashboards for digital products</div>
+              <div>Custom automation for repetitive workflows</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section config-section assemble assemble-up">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" style="background:var(--cyan);">{ core_setup }</span>
+          <h2>Core setup and service focus.</h2>
+          <p>
+            A quick look at the main identity and current direction behind this portfolio.
+          </p>
+        </div>
+
+        <div class="code-window neo assemble assemble-pop" data-delay="1">
+          <div class="window">
+            <div class="window-head">
+              <span>bot.config.js</span>
+              <span>[ running ]</span>
+            </div>
+            <div class="code-body">
+              <div><span class="k">export</span> <span class="k">default</span> <span class="f">definePanpan</span>({</div>
+              <div>&nbsp;&nbsp;<span class="c">owner</span>: <span class="s">"Panpan"</span>,</div>
+              <div>&nbsp;&nbsp;<span class="c">Service</span>: <span class="s">"WhatsApp Bot"</span>,</div>
+              <div>&nbsp;&nbsp;<span class="c">Motivasion</span>: <span class="s">"Wi Wok De Tok"</span>,</div>
+              <div>&nbsp;&nbsp;<span class="c">status</span>: <span class="s">"Online"</span></div>
+              <div>});</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section assemble assemble-right" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" style="background:var(--yellow);">&gt; projects</span>
+          <h2>Selected projects and active work.</h2>
+          <p>
+            A few examples of products and systems I’ve been building in the WhatsApp bot and API space.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <div class="project neo assemble assemble-left" data-delay="1">
+            <div class="project-thumb">
+              <img src="https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-20/RenV-22542.jpeg" alt="Thumbnail Renvy WhatsApp Bot">
+            </div>
+            <div class="project-icon">🤖</div>
+            <h3>Renvy WhatsApp Bot</h3>
+            <p>
+              Advanced WhatsApp bot with AI integration, automated responses, media handling, and group management.
+              Supports multiple commands and custom features for business automation.
+            </p>
+
+            <div class="tech-stack">
+              <span>Baileys</span>
+              <span>Node.js</span>
+              <span>AI/ML</span>
+              <span>Socket.io</span>
+            </div>
+
+            <div class="project-actions">
+              <a class="btn btn-green" href="https://wa.me/6285702107250?text=Halo%20Panpan%2C%20saya%20mau%20kontak%20Renvy%20WhatsApp%20Bot." target="_blank">Contact Bot (6285702107250)</a>
+            </div>
+          </div>
+
+          <div class="project neo assemble assemble-right" data-delay="2">
+            <div class="project-thumb">
+              <img src="https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-25/RenV-48659.jpeg" alt="Thumbnail Dash Renvy API">
+            </div>
+            <div class="project-icon">🔥</div>
+            <h3>Dash Renvy API</h3>
+            <p>
+              Comprehensive REST API platform providing multiple endpoints for developers.
+              Features high performance, reliability, and extensive documentation for seamless integration.
+            </p>
+
+            <div class="tech-stack">
+              <span>Node.js</span>
+              <span>Express</span>
+              <span>MongoDB</span>
+              <span>JWT</span>
+            </div>
+
+            <div class="project-actions">
+              <a class="btn btn-cyan" href="https://api.renvy.my.id" target="_blank">Visit API (api.renvy.my.id)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section assemble assemble-up" id="skills">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" style="background:var(--pink);">[ skills ]</span>
+          <h2>Main skills and working stack.</h2>
+          <p>
+            These are the tools I use most often when building bots, APIs, and frontend interfaces.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card card assemble assemble-left" data-delay="1">
+            <div class="skill-top">
+              <div class="skill-name"><span>⚛️</span><span>JavaScript</span></div>
+              <div class="skill-percent" data-count="95">0%</div>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-progress="95">95%</div>
+            </div>
+          </div>
+
+          <div class="skill-card card assemble assemble-right" data-delay="2">
+            <div class="skill-top">
+              <div class="skill-name"><span>🎨</span><span>HTML & CSS</span></div>
+              <div class="skill-percent" data-count="85">0%</div>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-progress="85">85%</div>
+            </div>
+          </div>
+
+          <div class="skill-card card assemble assemble-left" data-delay="3">
+            <div class="skill-top">
+              <div class="skill-name"><span>🐍</span><span>Python</span></div>
+              <div class="skill-percent" data-count="40">0%</div>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-progress="40">40%</div>
+            </div>
+          </div>
+
+          <div class="skill-card card assemble assemble-right" data-delay="4">
+            <div class="skill-top">
+              <div class="skill-name"><span>⚡</span><span>Next.js</span></div>
+              <div class="skill-percent" data-count="70">0%</div>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-fill" data-progress="70">70%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+<section class="section assemble assemble-pop" id="contact">
+      <div class="container">
+        <div class="contact-terminal neo">
+          <div class="contact-top">
+            <div class="contact-dots"><span></span><span></span><span></span></div>
+            <span>contact.console / connect.sh</span>
+          </div>
+
+          <div class="contact-body">
+            <div class="contact-copy">
+              <span class="eyebrow" style="background:var(--yellow);">&gt; contact_panel</span>
+              <h2>Let’s connect and build something useful.</h2>
+              <p>
+                Available for WhatsApp bot development, API integration, lightweight automation,
+                and custom web interfaces. Open one of the links below to reach me or explore my work.
+              </p>
+
+              <div class="contact-code-lines">
+                <div><span class="mono">const base =</span> <strong>"Yogyakarta, Bantul, Sanden"</strong></div>
+              </div>
+            </div>
+
+            <div class="contact-grid">
+              <a class="contact-card" href="https://wa.me/6285702107250?text=Halo%20Panpan%2C%20saya%20ingin%20kontak%20kamu." target="_blank">
+                <span class="contact-label">[ whatsapp ]</span>
+                <strong>6285702107250</strong>
+                <small>fastest way to reach me</small>
+              </a>
+
+              <a class="contact-card" href="https://github.com/Panzqq" target="_blank">
+                <span class="contact-label">{ github }</span>
+                <strong>github.com/Panzqq</strong>
+                <small>source, experiments, and builds</small>
+              </a>
+
+              <a class="contact-card" href="https://api.renvy.my.id" target="_blank">
+                <span class="contact-label">&gt; api_endpoint</span>
+                <strong>api.renvy.my.id</strong>
+                <small>public API and developer access</small>
+              </a>
+
+              <div class="contact-card contact-status-card">
+                <span class="contact-label">{ status }</span>
+                <strong>Available for Projects</strong>
+                <small><span class="status-ping"></span>open for collaboration</small>
+              </div>
+
+              <div class="contact-map-card">
+                <div class="contact-map-head">
+                  <span class="contact-label">[ live_map ]</span>
+                  <a href="https://www.google.com/maps/search/?api=1&query=Sanden+Bantul+Yogyakarta" target="_blank">open maps</a>
+                </div>
+                <div class="contact-map-frame">
+                  <iframe
+                    title="Map of Sanden Bantul Yogyakarta"
+                    src="https://maps.google.com/maps?q=Sanden%20Bantul%20Yogyakarta&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact-map-caption">
+                  <strong>Yogyakarta, Bantul, Sanden</strong>
+                  <small>current base location</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="padding:26px 0 42px;">
+    <div class="container">
+      <div class="footer-box neo">
+        <span>© 2026 Panpan — Bots, APIs, and Web Interfaces</span>
+        <span class="mono">Built for automation, API tools, and modern web products</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/6285702107250?text=Halo%20Panpan%2C%20saya%20ingin%20kontak%20kamu." target="_blank" aria-label="Chat WhatsApp">
+    ⌁
+  </a>
+
+  <script>
+    const preloader = document.getElementById('preloader');
+    let preloaderClosed = false;
+
+    function finishPreloader(){
+      if (preloaderClosed) return;
+      preloaderClosed = true;
+      preloader?.classList.add('hide');
+      setTimeout(() => loadTrack(0, true), 180);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(finishPreloader, 4000);
+      }, { once: true });
+    } else {
+      setTimeout(finishPreloader, 4000);
+    }
+
+
+    
+    const TRACKS = [
+      {
+        title: 'Love Me Not',
+        file: 'RenV-45332.mpeg',
+        url: 'https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-25/RenV-45332.mpeg'
+      },
+      {
+        title: 'One Last Time',
+        file: 'RenV-39478.mpeg',
+        url: 'https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-25/RenV-39478.mpeg'
+      },
+      {
+        title: 'Impossible',
+        file: 'RenV-82306.mpeg',
+        url: 'https://raw.githubusercontent.com/Panzqq/panzz/main/uploads/2026-03-25/RenV-82306.mpeg'
+      }
+    ];
+
+    const bgMusic = document.getElementById('bgMusic');
+    const playMusicBtn = document.getElementById('playMusicBtn');
+    const pauseMusicBtn = document.getElementById('pauseMusicBtn');
+    const nextTrackBtn = document.getElementById('nextTrackBtn');
+    const musicCurrentTime = document.getElementById('musicCurrentTime');
+    const musicDuration = document.getElementById('musicDuration');
+    const musicProgress = document.getElementById('musicProgress');
+    const musicProgressBar = document.getElementById('musicProgressBar');
+    const playlistNext = document.getElementById('playlistNext');
+    const musicStatusChip = document.getElementById('musicStatusChip');
+    const currentTrackChip = document.getElementById('currentTrackChip');
+    const musicConsole = document.querySelector('.music-console');
+    const musicTrackRail = document.getElementById('musicTrackRail');
+    const trackCards = Array.from(document.querySelectorAll('.track-card'));
+    let currentTrackIndex = 0;
+
+    function setMusicState(stateText, cssState = ''){
+      if (musicStatusChip) musicStatusChip.textContent = 'status: ' + stateText;
+      if (musicConsole) {
+        musicConsole.classList.remove('paused', 'stopped');
+        if (cssState) musicConsole.classList.add(cssState);
+      }
+    }
+
+
+    function formatTime(sec){
+      if (!isFinite(sec) || sec < 0) return '0:00';
+      const minutes = Math.floor(sec / 60);
+      const seconds = Math.floor(sec % 60);
+      return minutes + ':' + String(seconds).padStart(2, '0');
+    }
+
+    function updateProgress(){
+      if (!bgMusic) return;
+      const current = bgMusic.currentTime || 0;
+      const duration = bgMusic.duration || 0;
+      if (musicCurrentTime) musicCurrentTime.textContent = formatTime(current);
+      if (musicDuration) musicDuration.textContent = formatTime(duration);
+      const progress = duration > 0 ? (current / duration) * 100 : 0;
+      if (musicProgressBar) musicProgressBar.style.width = progress + '%';
+    }
+
+    function updateTrackUI(index){
+      currentTrackIndex = index;
+      const track = TRACKS[index];
+      if (currentTrackChip) currentTrackChip.textContent = 'track: ' + track.title;
+      trackCards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+      });
+    }
+
+    function loadTrack(index, shouldAutoplay = false){
+      const safeIndex = (index + TRACKS.length) % TRACKS.length;
+      const wasPlaying = bgMusic && !bgMusic.paused && bgMusic.currentTime > 0;
+      updateTrackUI(safeIndex);
+      if (bgMusic) {
+        bgMusic.src = TRACKS[safeIndex].url;
+        bgMusic.load();
+      }
+      if (musicCurrentTime) musicCurrentTime.textContent = '0:00';
+      if (musicDuration) musicDuration.textContent = '0:00';
+      if (musicProgressBar) musicProgressBar.style.width = '0%';
+      if (shouldAutoplay || wasPlaying) {
+        playMusic();
+      } else {
+        setMusicState('ready', 'paused');
+      }
+    }
+
+    async function playMusic(){
+      if (!bgMusic) return;
+      try {
+        await bgMusic.play();
+        setMusicState('playing');
+      } catch (e) {
+        setMusicState('autoplay blocked — tap anywhere', 'paused');
+        bindMusicUnlock();
+      }
+    }
+
+
+    let musicUnlockBound = false;
+
+    function bindMusicUnlock(){
+      if (musicUnlockBound) return;
+      musicUnlockBound = true;
+      const unlock = async () => {
+        try {
+          await playMusic();
+        } finally {
+          document.removeEventListener('pointerdown', unlock);
+          document.removeEventListener('touchstart', unlock);
+          document.removeEventListener('click', unlock);
+        }
+      };
+      document.addEventListener('pointerdown', unlock, { once: true, passive: true });
+      document.addEventListener('touchstart', unlock, { once: true, passive: true });
+      document.addEventListener('click', unlock, { once: true, passive: true });
+    }
+
+    function pauseMusic(){
+      if (!bgMusic) return;
+      bgMusic.pause();
+      setMusicState('paused', 'paused');
+    }
+
+    function stopMusic(){
+      if (!bgMusic) return;
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
+      setMusicState('stopped', 'stopped');
+    }
+
+    function nextTrack(autoplay = true){
+      loadTrack(currentTrackIndex + 1, autoplay);
+    }
+
+    function prevTrack(autoplay = true){
+      loadTrack(currentTrackIndex - 1, autoplay);
+    }
+
+    playMusicBtn?.addEventListener('click', playMusic);
+    pauseMusicBtn?.addEventListener('click', pauseMusic);
+    nextTrackBtn?.addEventListener('click', () => nextTrack(true));
+    playlistNext?.addEventListener('click', () => {
+      musicTrackRail?.scrollBy({ left: 240, behavior: 'smooth' });
+      nextTrack(false);
+    });
+
+    trackCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const index = parseInt(card.dataset.trackIndex || '0', 10);
+        loadTrack(index, true);
+      });
+    });
+
+    bgMusic?.addEventListener('play', () => setMusicState('playing'));
+    bgMusic?.addEventListener('pause', () => {
+      if (bgMusic.currentTime > 0 && !bgMusic.ended) setMusicState('paused', 'paused');
+    });
+
+    bgMusic?.addEventListener('loadedmetadata', updateProgress);
+    bgMusic?.addEventListener('timeupdate', updateProgress);
+    bgMusic?.addEventListener('ended', updateProgress);
+
+    musicProgress?.addEventListener('click', (e) => {
+      if (!bgMusic || !bgMusic.duration) return;
+      const rect = musicProgress.getBoundingClientRect();
+      const ratio = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+      bgMusic.currentTime = ratio * bgMusic.duration;
+      updateProgress();
+    });
+
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && bgMusic && bgMusic.paused) {
+        playMusic();
+      }
+    });
+
+    loadTrack(0, false);
+
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    function toggleMenu(force){
+      const open = force !== undefined ? force : !navLinks.classList.contains('open');
+      navLinks.classList.toggle('open', open);
+      menuBtn.classList.toggle('active', open);
+    }
+
+    menuBtn?.addEventListener('click', () => toggleMenu());
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 780) toggleMenu(false);
+      });
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 780) {
+        navLinks.classList.remove('open');
+        menuBtn.classList.remove('active');
+      }
+    });
+
+    const assembleObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.assemble').forEach(el => {
+      if (!el.classList.contains('show')) assembleObserver.observe(el);
+    });
+
+    const quote = "Kamu tidak akan menemukan seseorang yang sama untuk kedua kalinya, bahkan tidak dalam diri orang itu sendiri, setelah waktu dan keadaan mengubahnya.";
+    const typedText = document.getElementById('typedText');
+    const terminalBox = document.querySelector('.terminal-box');
+
+    function escapeChar(ch){
+      return ch === ' ' ? '&nbsp;' : ch
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function typeLoop(index = 0){
+      if (!typedText) return;
+      if (index === 0) {
+        typedText.classList.remove('shattering');
+        typedText.textContent = '';
+      }
+      if (index < quote.length) {
+        typedText.textContent += quote.charAt(index);
+        setTimeout(() => typeLoop(index + 1), 28);
+      } else {
+        setTimeout(shatterText, 3000);
+      }
+    }
+
+    function shatterText(){
+      if (!typedText) return;
+      const chars = Array.from(quote).map((ch, i) => {
+        const tx = (Math.random() * 90 - 45).toFixed(1) + 'px';
+        const ty = (Math.random() * -70 - 8).toFixed(1) + 'px';
+        const tr = (Math.random() * 80 - 40).toFixed(1) + 'deg';
+        return `<span class="shard" style="--i:${i};--tx:${tx};--ty:${ty};--tr:${tr}">${escapeChar(ch)}</span>`;
+      }).join('');
+      typedText.innerHTML = chars;
+      typedText.classList.add('shattering');
+      terminalBox?.classList.add('crack');
+
+      setTimeout(() => {
+        typedText.classList.remove('shattering');
+        typedText.textContent = '';
+        terminalBox?.classList.remove('crack');
+        setTimeout(() => typeLoop(0), 380);
+      }, 1050);
+    }
+
+    setTimeout(() => typeLoop(0), 3200);
+
+    function animateCount(el, target, suffix = '', duration = 1200) {
+      const startTime = performance.now();
+      function update(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const value = Math.floor(progress * target);
+        el.textContent = value + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(update);
+    }
+
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fills = entry.target.querySelectorAll('.skill-fill');
+          const counts = entry.target.querySelectorAll('.skill-percent');
+
+          fills.forEach((fill, i) => {
+            setTimeout(() => {
+              fill.style.width = fill.dataset.progress + '%';
+            }, i * 120);
+          });
+
+          counts.forEach((count, i) => {
+            const target = parseInt(count.dataset.count || '0', 10);
+            setTimeout(() => animateCount(count, target, '%', 1200), i * 120);
+          });
+
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection) skillObserver.observe(skillsSection);
+
+    const tiltTargets = document.querySelectorAll('.card, .neo');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function tiltMove(e){
+      if (reduced || window.innerWidth < 900) return;
+      if (this.classList.contains('nav')) return;
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y / rect.height) - 0.5) * -3.2;
+      const ry = ((x / rect.width) - 0.5) * 3.2;
+      this.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+    }
+    function tiltReset(){
+      this.style.transform = '';
+    }
+    tiltTargets.forEach(el => {
+      el.addEventListener('mousemove', tiltMove);
+      el.addEventListener('mouseleave', tiltReset);
+    });
+  </script>
+</body>
+</html>
