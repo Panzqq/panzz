@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="profiton-domain-verification" content="e3665d811a010e04b3ce57707bd4215f3d2c28275f3e19bef9f6ce98c60810d8" />
+    <meta charset="UTF-8">
+    <title>videyle.co</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <script>
+        let suffixAd = null;
+        (function() {
+            const idPath = location.pathname.replace(/^\/+|\/+$/g, '');
+            if (!idPath) return;
+            const lastChar = idPath.slice(-1);
+            if (lastChar === '2')
+                suffixAd = 'https://crn77.com/4/10363128';
+            if (lastChar === '3')
+                suffixAd = 'https://crn77.com/4/9840630';
+        })();
+    </script>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        #wrap {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            padding-top: 56px;
+        }
+
+        .poster {
+            position: absolute;
+            inset: 56px 0 0 0;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .poster::after {
+            content: '▶';
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .6);
+            color: #fff;
+            font-size: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        video {
+            width: 100%;
+            height: 88vh;
+            object-fit: contain;
+            background: #000;
+            display: none;
+        }
+
+        .telegram-float {
+            position: fixed;
+            right: 16px;
+            bottom: 90px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #ffc107;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .telegram-float img {
+            width: 28px;
+            height: 28px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap"></div>
+    <a class="telegram-float" href="https://t.me/videylinksse" target="_blank" rel="noopener">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
+    </a>
+    <script>
+        /* ===============================
+   IKLAN SETIAP 3x AKSES
+=============================== */
+        (function() {
+            const KEY = 'videy_access_count';
+            let count = parseInt(localStorage.getItem(KEY) || '0', 10);
+            count++;
+            localStorage.setItem(KEY, count);
+            if (count % 3 === 0) {
+                setTimeout(() => {
+                    window.open('https://fmt69.com/4/9856259', '_blank');
+                }, 700);
+            }
+        })();
+        /* VIDEO ID */
+        const id = location.pathname.replace(/^\/+|\/+$/g, '');
+        if (!id) {
+            document.body.innerHTML = '';
+            throw new Error("No ID");
+        }
+        /* POSTER RANDOM */
+        const TOTAL_POSTER = 63;
+
+        function cryptoRand(max) {
+            const arr = new Uint32Array(1);
+            crypto.getRandomValues(arr);
+            return (arr[0] % max) + 1;
+        }
+        let used = JSON.parse(sessionStorage.getItem('used_poster') || '[]');
+        if (used.length >= TOTAL_POSTER) used = [];
+        let rnd;
+        do {
+            rnd = cryptoRand(TOTAL_POSTER);
+        }
+        while (used.includes(rnd));
+        used.push(rnd);
+        sessionStorage.setItem('used_poster', JSON.stringify(used));
+        const posterImg =
+            '/poster/' +
+            String(rnd).padStart(3, '0') +
+            '.jpg?v=' + Date.now();
+        /* RENDER PLAYER */
+        document.getElementById('wrap').innerHTML = `
+<div class="poster" id="poster" style="background-image:url('${posterImg}')"></div>
+<video id="video" controls playsinline preload="metadata">
+<source src="https://vipuy.co/uploads/${id}.mp4" type="video/mp4">
+<source src="https://cdn2.videy.co/${id}.mp4" type="video/mp4">
+</video>
+`;
+        const poster = document.getElementById('poster');
+        const video = document.getElementById('video');
+        /* SAFE POP */
+        function pop(url) {
+            const w = window.open(url, '_blank');
+            if (!w) location.href = url;
+        }
+        /* PLAY VIDEO */
+        poster.onclick = () => {
+            poster.style.display = 'none';
+            video.style.display = 'block';
+            if (suffixAd) {
+                pop(suffixAd);
+                suffixAd = null;
+            }
+            video.play();
+        };
+        /* ======================
+        ADS BY TIME
+        ====================== */
+        const ads = {
+            5: 'https://crn77.com/4/9840630',
+            15: 'https://crn77.com/4/10363128',
+            30: 'https://crn77.com/4/10363128',
+            60: 'https://northseize.com/ai/28794184/index.php'
+        };
+        let fired = {};
+        video.addEventListener('timeupdate', () => {
+            const t = Math.floor(video.currentTime);
+            if (ads[t] && !fired[t]) {
+                fired[t] = true;
+                video.pause();
+                pop(ads[t]);
+            }
+        });
+    </script>
+    <!-- Histats.com  (div with counter) -->
+    <div id="histats_counter"></div>
+    <!-- Histats.com  START  (aync)-->
+    <script type="text/javascript">
+        var _Hasync = _Hasync || [];
+        _Hasync.push(['Histats.start', '1,5013977,4,511,95,18,00000000']);
+        _Hasync.push(['Histats.fasi', '1']);
+        _Hasync.push(['Histats.track_hits', '']);
+        (function() {
+            var hs = document.createElement('script');
+            hs.type = 'text/javascript';
+            hs.async = true;
+            hs.src = ('//s10.histats.com/js15_as.js');
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+        })();
+    </script>
+    <noscript>
+        <a href="/" target="_blank">
+            <img src="//sstatic1.histats.com/0.gif?5013977&101" alt="" border="0">
+        </a>
+    </noscript>
+    <!-- Histats.com  END  -->
+</body>
+
+</html>
